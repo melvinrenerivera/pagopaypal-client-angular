@@ -1,0 +1,50 @@
+<form (ngSubmit)="save()" autocomplete="off" [formGroup]="form">
+   
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label for="nombre">nombre</mat-label>
+        
+        <input matInput 
+        type="text" 
+        formControlName="nombres"
+        name="nombres">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label for="apellido">apellido</mat-label>
+        
+        <input matInput type="text" 
+        formControlName="apellidos"
+        name="apellidos">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label for="email">email</mat-label>
+        
+        <input matInput type="text" 
+        formControlName="email"
+        name="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label for="password">password</mat-label>
+        
+        <input matInput type="password" 
+        formControlName="password"
+        name="password">
+    </mat-form-field>
+
+
+    
+    <h4>Seleccionar Rol</h4>
+    <mat-form-field  appearance="outline" class="d-block">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="rol" name="rol">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+
+     
+    <button class="button" mat-raised-button routerLink="/admin/usuarios">Cancelar</button>
+    <button class="button" mat-raised-button color="primary">Create User</button>
+</form>

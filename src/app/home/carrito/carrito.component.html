@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <h1>Mi carrito</h1>
+    
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            <ng-container *ngIf="items.length > 0; elese sinItems">
+                <div mat-menu-item *ngFor="let item of items" class="carrito-item" >
+                    <div class="d-flex gap-3">
+                        <img [src]="item.urlPortada" alt="" height="64">
+                        <div class="d-flex info justify-content-between w-100">
+                            <div>
+                                <div class="fw-bold mb-1">{{item.titulo}}</div>
+
+                               <button mat-button color="warn" (click)="removerLibro(item)">Eliminar</button>
+                            </div>
+
+                            <div style="color: red" class="bw-bold">{{item.precio | currency : '$'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+
+        <div class="col-lg-3 col-md-4">
+            <h2 class="fw-bold">Total:</h2>
+            <div class="text-end fw-bold" style="color: red; font-size: 200%;">{{ total | currency : '$' }}</div>
+
+            <button (click)=" pagar()" mat-raised-button color="primary" class="w-100 mt-3 btn-pago-paypal"  [class.spinner]="loading">
+                <ng-container *ngIf="!loading" > 
+                <mat-icon>paypal</mat-icon> Pagar con PayPal
+                </ng-container>
+            </button>
+
+            <button mat-button  class="w-100 mt-3" routerLink="/libros">
+                Seguir Comprando
+            </button>
+        </div>
+    </div>
+</div>  

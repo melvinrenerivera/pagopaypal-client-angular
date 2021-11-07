@@ -1,0 +1,24 @@
+<mat-card>
+    <div mat-card-image>
+        <img [src]="libro.urlPortada" [alt]="libro.titulo" class="w-100">
+    </div>
+    <mat-card-content>
+        <h1>
+             <a [routerLink]="['/libros',libro.slug]">{{libro.titulo}}</a>
+        </h1>
+        <p>{{libro.descripcion  | slice:0:100}}...</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" class="w-100" routerLink="/carrito"
+        *ngIf="libroYaEstaAgregado(libro); else botonAgregar">
+            <mat-icon>done</mat-icon>  Ir al carrito
+        </button>
+
+        <ng-template #botonAgregar>
+            <button mat-raised-button color="primary" class="w-100" (click)="agregarACarrito(libro)">
+                <mat-icon>add_shopping_cart</mat-icon> Agregar al carrito
+            </button>
+        </ng-template>
+       
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,45 @@
+<div class="container mt-5" *ngIf="venta">
+
+    <div class="text-center" style="font-size: 150%;">
+        <mat-icon class="w-100 text-success">check_circle</mat-icon>
+        <div class="mt-1">Tu compra ha sido realizada con exito.</div>
+    </div>
+
+    <h1 class="mt-5 fw-bold">Detalles de la venta</h1>
+
+    <h1>Mi carrito</h1>
+
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            <div mat-menu-item *ngFor="let item of venta.items" class="carrito-item">
+                <div class="d-flex gap-3">
+                    <img [src]="item.libro.urlPortada" alt="" height="64">
+                    <div class="d-flex info justify-content-between w-100">
+                        <div>
+                            <div class="fw-bold mb-1">{{item.libro.titulo}}</div>
+
+                            <button mat-button color="warn" (click)="descargarArchivo(item)" [disabled]="item.numeroDescargasDisponibles == 0">
+                               <mat-icon>file_download</mat-icon>  Descargar Pdf
+                            </button>
+                            <span class="ms-2">
+                                {{item.numeroDescargasDisponibles}} 
+                                {{ item.numeroDescargasDisponibles | i18nPlural: {'=1': 'descarga disponible','other':'Descargas disponibles'  } }}
+                            </span>
+                        </div>
+
+                        <div style="color: red" class="bw-bold">{{item.libro.precio | currency : '$'}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-4">
+            <h2 class="fw-bold">Total:</h2>
+            <div class="text-end fw-bold" style="color: red; font-size: 200%;">{{ venta.total | currency : '$' }}</div>
+
+            <button mat-button class="w-100 mt-3" routerLink="/libros">
+                Seguir Comprando
+            </button>
+        </div>
+    </div>

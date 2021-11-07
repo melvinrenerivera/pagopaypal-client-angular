@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-6">
+
+            <form (ngSubmit)="save()" autocomplete="off" [formGroup]="formulario">
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>Titulo</mat-label>
+                    
+                    <input formControlName="titulo" matInput type="text" 
+                    name="titulo" id="titulo" (keyup)="onChangeTitulo()">
+
+                    <mat-error *ngIf="formulario.controls.titulo.hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="formulario.controls.titulo.hasError('minlength')">
+                        Debe tener almenos 3 caracteres
+                    </mat-error>
+                    <mat-error *ngIf="formulario.controls.titulo.hasError('maxlength')">
+                        Debe tener almenos 250 caracteres como maximo
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>Slug</mat-label>
+                    
+                    <input formControlName="slug" matInput type="text" 
+                    name="slug">
+
+                    <mat-error *ngIf="formulario.controls.slug.hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>Descripcion</mat-label>
+                    
+                    <textarea formControlName="descripcion" matInput  
+                    name="descripcion" row="5"></textarea>
+
+                    <mat-error *ngIf="formulario.controls.descripcion.hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field  appearance="outline" class="d-block">
+                <mat-label for="number">Precio</mat-label>
+                    
+                    <input formControlName="precio" matInput type="number"  
+                    name="precio">
+
+                    <mat-error *ngIf="formulario.controls.precio.hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+ 
+                <div class="mb-3">
+                    <label class="d-block" for="rutaArchivo">Archivo pdf</label>
+
+                    <button type="button" mat-raised-button (click)="rutaAchivoFileInput.click()">Seleccionar Archivo</button>
+                    
+                    <input class="d-none" type="file"  id="rutaArchivo" 
+                    name="rutaArchivo" (change)="uploadFile($event,'rutaArchivo')" accept="application/pdf"
+                    #rutaAchivoFileInput>
+
+                    <mat-error *ngIf="formulario.controls.rutaArchivo.hasError('required') && formulario.controls.rutaArchivo.touched">
+                        El archivo pdf es obligatorio
+                    </mat-error>
+
+                    <div *ngIf="this.formulario.controls.rutaArchivo">El archivo pdf se ha subido</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="d-block" for="rutaPortada">Imagen de portada</label>
+
+                    <button type="button" mat-raised-button (click)="rutaImagenArchivoFile.click()">Seleccionar Archivo</button>
+                    
+                    <input class="d-none"  type="file"   id="rutaPortada" 
+                    name="rutaPortada" accept="image/*" (change)="uploadFile($event,'rutaPortada')"
+                    #rutaImagenArchivoFile>
+
+
+                    <mat-error *ngIf="formulario.controls.rutaPortada.hasError('required') && formulario.controls.rutaPortada.touched ">
+                        El archivo imagen es obligatorio
+                    </mat-error>
+                
+                </div>
+
+                <div class="alert" *ngIf="errors.length">
+                    <div *ngFor="let error of errors">
+                        {{error}}
+                    </div>
+                </div>
+                
+                <button mat-button  routerLink="/admin/libros">Cancelar</button>
+
+                <button mat-raised-button color="primary" [disabled]="loading">
+                    Guardar
+                </button>
+            </form>
+    </div>
+    <div class="col-md-6">
+        <img [src]="urlImagen" alt="" *ngIf="urlImagen; else sinImagen" width="w-100" 
+        style="max-width: 450px; 
+        max-height: 450px; margin: 0 auto;">
+
+        <ng-template #sinImagen >
+            <div style="width: 450px; height: 250px; border: 1px solid lightblue;"
+            class="text-center">
+                Sin imagen
+            </div>
+        </ng-template>
+    </div>
+</div>

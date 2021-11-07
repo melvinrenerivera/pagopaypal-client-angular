@@ -1,0 +1,30 @@
+<h3>Editar Libro</h3>
+
+ <!-- agrego una condicion siempre que el libro sea diferente de null, porque se crea el formulario en el hijo y el valor del padre aun  no se ha  -->
+<app-form-libro (onSave)="update($event)" [libro]="libro" *ngIf="libro"></app-form-libro>
+
+  <!--
+<form (ngSubmit)="update()" *ngIf="libro">
+    
+    <div>
+        <label for="titulo">Titulo</label>
+        
+        <input type="text"  id="titulo" 
+        [(ngModel)]="libro.titulo" 
+        name="titulo">
+    </div>
+
+    <div>
+        <label for="number">Precio</label>
+        
+        <input type="number"  id="precio" 
+        [(ngModel)]="libro.precio" 
+        name="precio">
+    </div>
+  
+    
+    <button>
+        Guardar
+    </button>
+</form>
+  -->

@@ -1,0 +1,35 @@
+<div class="container mt-5" *ngIf="libro">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="w-50" [src]="libro.urlPortada" [alt]="libro.titulo">
+        </div>
+        <div class="col-md-6">
+            <h1>{{libro.titulo}}</h1>
+
+            <p>
+                {{libro.descripcion}}
+            </p>
+            <div>
+                Formato disponible
+                <span>PDF</span>
+            </div>
+            <div class="mt-2">
+                <span class="fw-bold">Precio:</span>
+                <span class="ms-1 display-1 fw-bold text-danger">{{ libro.precio | currency:'$'}}</span>
+            </div>
+
+            <div class="mt-5">
+                <button mat-raised-button color="accent" routerLink="/carrito"
+                    *ngIf="libroYaEstaAgregado(libro); else botonAgregar">
+                    <mat-icon>done</mat-icon> Ir al carrito
+                </button>
+
+                <ng-template #botonAgregar>
+                    <button mat-raised-button color="primary" (click)="agregarACarrito(libro)">
+                        <mat-icon>add_shopping_cart</mat-icon> Agregar al carrito
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

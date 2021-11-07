@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <h1 class="fw-bold">Inicio de session</h1>
+
+ <div class="row justify-content-center">
+     <div class="col-md-6 col-lg-4">
+        <form autocomplete="off" (ngSubmit)="login(formulario)" #formulario="ngForm">
+            <mat-form-field apperance="outline" class="d-block">
+               <mat-label>Correo Elecontronico</mat-label>
+               <input matInput type="email" placeholder="correo electronico"
+               name="email"
+               [(ngModel)]="credentials.email"
+               #email="ngModel"
+               required
+               pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$">
+   
+               <mat-error *ngIf="email.hasError('required')">
+                   Este campo es obligatorio
+               </mat-error>
+               <mat-error *ngIf="email.hasError('pattern')">
+                  Ingrese un correo electronico valido
+               </mat-error>
+            </mat-form-field>
+   
+            <mat-form-field apperance="outline" class="d-block">
+               <mat-label>Contrasenia</mat-label>
+               <input matInput type="password" placeholder="contrasenia"
+               name="password"
+               [(ngModel)]="credentials.password"
+               #password="ngModel"
+               required>
+   
+               <mat-error *ngIf="password.hasError('required')">
+                   Este campo es obligatorio
+               </mat-error>
+            </mat-form-field>
+   
+            <button mat-raised-button color="primary" class="mt-5 w-100">
+                Ingresar
+            </button>
+   
+            <div *ngIf="error" class="alert alert-danger mt-3">
+                El usuario o contrase;a no son correctos
+            </div>
+       </form>
+     </div>
+ </div>
+</div>

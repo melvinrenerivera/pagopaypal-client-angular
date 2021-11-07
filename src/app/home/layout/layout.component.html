@@ -1,0 +1,67 @@
+
+<mat-toolbar>
+    <span>Mi tienda Enlinea</span>
+
+    <button mat-button routerLink="/" class="ms-2">Inicio</button>
+
+    <button mat-button routerLink="/libros" class="ms-2">Libros</button>
+    
+    <button mat-button routerLink="/admin/libros" class="ms-2" *ngIf="isAdmin()">Administracion</button>
+
+    <span class="spacer"></span>
+
+    <button mat-button [matBadge]="items.length" [matMenuTriggerFor]="menuCarrito">
+        <mat-icon>shopping_cart</mat-icon> 
+    </button>
+
+    <mat-menu #menuCarrito="matMenu">
+        <ng-container *ngIf="items.length > 0; elese sinItems">
+            <button mat-menu-item *ngFor="let item of items" [routerLink]="['/libros',item.slug]" class="carrito-item" >
+                <div class="d-flex gap-3">
+                    <img [src]="item.urlPortada" alt="" height="64">
+                    <div>
+                        <div class="fw-bold mb-1">{{item.titulo}}</div>
+                        <div>{{item.precio | currency : '$'}}</div>
+                    </div>
+                </div>
+            </button>
+
+            <button mat-menu-item routerLink="/carrito" class="text-center">
+                Ir al carrito
+            </button>
+        </ng-container>
+
+        <ng-template #sinItems>
+            <button mat-menu-item>
+                El carrito esta vacio.
+            </button>
+        </ng-template>
+     </mat-menu>
+
+     <ng-container *ngIf="isLoggedIn(); else loginButtons">
+
+        <button mat-button [matMenuTriggerFor]="menu" >
+            <mat-icon>account_circle</mat-icon> {{user}}
+        </button>
+    
+        <mat-menu #menu="matMenu">
+           <button mat-menu-item (click)="logout()">
+               <mat-icon>Logout</mat-icon> Cerrar sesion
+           </button>
+        </mat-menu>
+     </ng-container>
+
+
+    <ng-template #loginButtons >
+        <button mat-button routerLink="/auth/login">
+            Iniciar sesion
+        </button>
+
+        <button mat-raised-button color="primary" routerLink="/auth/registro" class="ms-2">
+            Registrarme
+        </button>
+    </ng-template>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>

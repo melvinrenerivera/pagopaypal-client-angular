@@ -1,0 +1,91 @@
+<p>Lista de usuarios</p>
+
+<div class="text-end">
+
+    <button  mat-raised-button color="primary" routerLink="/admin/usuarios/nuevo">  Nuevo Usuario</button>
+
+</div>
+<br>
+
+<table mat-table [dataSource]="usuarioPage.content" class="mat-elevation-z8 w-100" *ngIf="usuarioPage">
+    <ng-container matColumnDef="nombre" >
+        <th mat-header-cell *matHeaderCellDef>nombre</th>
+        <td mat-cell *matCellDef="let usuario">{{usuario.nombres}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="apellido" >
+        <th mat-header-cell *matHeaderCellDef>apellido</th>
+        <td mat-cell *matCellDef="let usuario">{{usuario.apellidos}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email" >
+        <th mat-header-cell *matHeaderCellDef>email</th>
+        <td mat-cell *matCellDef="let usuario">{{usuario.email}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaCreacion" >
+        <th mat-header-cell *matHeaderCellDef>fechaCreacion</th>
+        <td mat-cell *matCellDef="let usuario">{{usuario.fechaCreacion | date:'dd/MM/yyyy hh:mm a'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaActualizacion" >
+        <th mat-header-cell *matHeaderCellDef>fechaActualizacion</th>
+        <td mat-cell *matCellDef="let usuario">{{usuario.fechaActualizacion | date:'dd/MM/yyyy hh:mm a'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Acciones" >
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let usuario">
+            <button mat-icon-button type="button" color="primary" [routerLink]="[usuario.id,'editar']" routerLinkActive="router-link-active" >
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="delete(usuario.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+
+<mat-paginator [length]="usuarioPage.totalElements"
+[pageSize]="usuarioPage.size"
+[pageSizeOptions]="[5,20,50]"
+showFirstLastButtons
+(page)="onPaginateChange($event)" *ngIf="usuarioPage">
+</mat-paginator> 
+
+
+  <!-- 
+<table class="table table-primary">
+    <thead>
+        <th>id</th>
+        <th>nombre</th>
+        <th>apellido</th>
+        <th>full name</th>
+        <th>email</th>
+        <th>fechaCreacion</th>
+        <th>fechaActualizacion</th>
+        <th>accion</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of usuarios">
+            <td>{{u.id}}</td>
+            <td>{{u.nombre}}</td>
+            <td>{{u.apellido}}</td>
+            <td>{{u.nombreCompleto}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.fechaCreacion}}</td>
+            <td>{{u.fechaActualizacion}}</td>
+            <td>
+                <button type="button" [routerLink]="[u.id,'editar']" routerLinkActive="router-link-active" >Editar</button>
+                <button (click)="delete(u.id)">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+-->

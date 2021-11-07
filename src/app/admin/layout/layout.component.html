@@ -1,0 +1,31 @@
+
+<p>
+    <mat-toolbar color="primary">
+      <span>Administracion</span>
+
+      <button mat-button routerLink="/admin/libros" class="ms-2" >
+        Libros
+    </button>
+   
+    <button mat-button routerLink="/admin/usuarios">Usuarios</button>
+    <button mat-button routerLink="/admin/ventas">
+        Ventas
+    </button>
+    <span class="spacer"></span>
+
+     <button mat-button [matMenuTriggerFor]="menu">
+         <mat-icon>account_circle</mat-icon> {{user}}
+     </button>
+
+     <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>Logout</mat-icon> Cerrar sesion
+        </button>
+     </mat-menu>
+
+    </mat-toolbar>
+  </p>
+
+ <div class="container p-5">
+    <router-outlet></router-outlet>
+</div>
